@@ -1,0 +1,355 @@
+/* ============ Ainunu UI — detail pages ============ */
+
+/* ---------- hero ---------- */
+#nu-app .nu-detail-hero {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+  padding: 28px 0 48px;
+}
+#nu-app .nu-detail-bg {
+  position: absolute;
+  z-index: -1;
+  inset: -90px 0 0;
+  background-position: center 30%;
+  background-size: cover;
+  filter: blur(60px) saturate(1.5);
+  opacity: 0.45;
+  transform: scale(1.15);
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+  animation: nu-fade 1.2s var(--nu-ease) both;
+}
+html[data-nu-theme="light"] #nu-app .nu-detail-bg {
+  opacity: 0.3;
+}
+#nu-app .nu-detail-top {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  align-items: end;
+  gap: 44px;
+  margin-top: 26px;
+}
+
+#nu-app .nu-detail-poster {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--nu-poster-bg);
+  box-shadow:
+    0 30px 60px -20px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+  animation: nu-rise 0.8s var(--nu-ease) both;
+}
+#nu-app .nu-detail-poster.is-loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.08) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: nu-shimmer 1.4s linear infinite;
+}
+#nu-app .nu-detail-poster img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#nu-app .nu-detail-fallback {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 30% 20%, hsla(calc(var(--hue) + 40), 90%, 70%, 0.7), transparent 60%),
+    linear-gradient(160deg, hsl(var(--hue), 70%, 45%), hsl(calc(var(--hue) + 60), 65%, 25%));
+  color: #fff;
+  font-size: 44px;
+  font-weight: 900;
+  line-height: 1.15;
+  text-align: center;
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+#nu-app .nu-detail-info {
+  min-width: 0;
+  padding-bottom: 6px;
+  animation: nu-rise 0.8s 0.08s var(--nu-ease) both;
+}
+#nu-app .nu-detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+#nu-app .nu-detail-tags .nu-tag {
+  background: var(--nu-surface);
+  backdrop-filter: blur(8px);
+}
+#nu-app .nu-detail-title {
+  font-size: clamp(32px, 4.6vw, 58px);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+#nu-app .nu-detail-alt {
+  margin-top: 12px;
+  color: var(--nu-muted);
+  font-size: 15px;
+}
+#nu-app .nu-detail-facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 0;
+  margin-top: 18px;
+  font-size: 15px;
+  font-weight: 600;
+}
+#nu-app .nu-fact {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+#nu-app .nu-fact + .nu-fact::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  margin: 0 12px;
+  border-radius: 50%;
+  background: var(--nu-muted);
+  opacity: 0.6;
+}
+#nu-app .nu-fact--rating {
+  color: #fbbf24;
+  font-size: 17px;
+  font-weight: 800;
+}
+#nu-app .nu-detail-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+#nu-app .nu-detail-genres .nu-chip {
+  height: 30px;
+  padding: 0 14px;
+  backdrop-filter: blur(8px);
+}
+#nu-app .nu-detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+#nu-app .nu-btn--primary .nu-icon {
+  font-size: 18px;
+}
+#nu-app .nu-detail-updated {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  color: var(--nu-muted);
+  font-size: 13px;
+}
+
+/* ---------- body ---------- */
+#nu-app .nu-detail-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  align-items: start;
+  gap: 24px;
+}
+#nu-app .nu-detail-body.is-single {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 900px;
+}
+#nu-app .nu-detail-main,
+#nu-app .nu-detail-side {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+#nu-app .nu-detail-side {
+  position: sticky;
+  top: 88px;
+}
+#nu-app .nu-card {
+  padding: 26px 28px;
+  border: 1px solid var(--nu-border);
+  border-radius: 20px;
+  background: var(--nu-surface);
+  animation: nu-rise 0.7s 0.15s var(--nu-ease) both;
+}
+#nu-app .nu-card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  font-size: 18px;
+  font-weight: 800;
+}
+#nu-app .nu-card-title .nu-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 7px;
+  border-radius: 10px;
+  background: var(--nu-grad);
+  color: #fff;
+}
+
+#nu-app .nu-synopsis {
+  position: relative;
+  color: var(--nu-text);
+  font-size: 15px;
+  line-height: 1.9;
+  opacity: 0.9;
+}
+#nu-app .nu-synopsis p + p {
+  margin-top: 0.75em;
+}
+
+#nu-app .nu-info {
+  display: grid;
+  margin: 0;
+}
+#nu-app .nu-info-row {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 12px;
+  padding: 11px 0;
+  border-top: 1px dashed var(--nu-border);
+  font-size: 14px;
+  line-height: 1.6;
+}
+#nu-app .nu-info-row:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+#nu-app .nu-info dt {
+  color: var(--nu-muted);
+  white-space: nowrap;
+}
+#nu-app .nu-info dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+#nu-app .nu-info-row.is-people dd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+#nu-app .nu-person {
+  padding: 1px 10px;
+  border-radius: 999px;
+  background: var(--nu-surface-hover);
+  font-size: 13px;
+}
+
+#nu-app .nu-resources {
+  display: grid;
+  gap: 10px;
+}
+#nu-app .nu-resource {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--nu-border);
+  border-radius: 14px;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s var(--nu-ease);
+}
+#nu-app .nu-resource:hover {
+  border-color: rgba(255, 61, 110, 0.5);
+  background: var(--nu-surface-hover);
+  transform: translateX(4px);
+}
+#nu-app .nu-resource-no {
+  color: var(--nu-accent);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+#nu-app .nu-resource-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#nu-app .nu-prose {
+  font-size: 15px;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+#nu-app .nu-prose p + p {
+  margin-top: 0.75em;
+}
+#nu-app .nu-prose a {
+  color: var(--nu-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@keyframes nu-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 1024px) {
+  #nu-app .nu-detail-top {
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 32px;
+  }
+  #nu-app .nu-detail-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  #nu-app .nu-detail-side {
+    position: static;
+  }
+}
+@media (max-width: 760px) {
+  #nu-app .nu-detail-hero {
+    padding: 18px 0 32px;
+  }
+  #nu-app .nu-detail-top {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 24px;
+    margin-top: 20px;
+    text-align: center;
+  }
+  #nu-app .nu-detail-poster {
+    width: min(62vw, 240px);
+  }
+  #nu-app .nu-detail-tags,
+  #nu-app .nu-detail-facts,
+  #nu-app .nu-detail-genres,
+  #nu-app .nu-detail-actions,
+  #nu-app .nu-detail-updated {
+    justify-content: center;
+  }
+  #nu-app .nu-detail-actions .nu-btn--primary {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+  #nu-app .nu-detail-actions .nu-btn--ghost {
+    flex: 1;
+    justify-content: center;
+    padding: 0 16px;
+  }
+  #nu-app .nu-card {
+    padding: 20px;
+  }
+}

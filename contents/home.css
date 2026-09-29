@@ -1,0 +1,399 @@
+/* ============ Ainunu UI — home page ============ */
+
+/* ---------- hero ---------- */
+#nu-app .nu-hero {
+  position: relative;
+  margin-top: 16px;
+  height: clamp(440px, 64vh, 600px);
+  overflow: hidden;
+}
+#nu-app .nu-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s var(--nu-ease), visibility 0.8s;
+}
+#nu-app .nu-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+#nu-app .nu-slide-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+#nu-app .nu-slide-bg img {
+  position: absolute;
+  inset: -10%;
+  width: 120%;
+  height: 120%;
+  object-fit: cover;
+  filter: blur(36px) saturate(1.4);
+  opacity: 0.55;
+  transform: scale(1.05);
+  transition: transform 7s linear;
+}
+#nu-app .nu-slide.is-active .nu-slide-bg img {
+  transform: scale(1.15);
+}
+#nu-app .nu-slide-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, var(--nu-bg) 8%, color-mix(in srgb, var(--nu-bg) 55%, transparent) 55%, transparent 100%),
+    linear-gradient(0deg, var(--nu-bg) 0%, transparent 45%),
+    linear-gradient(180deg, var(--nu-bg) 0%, transparent 18%);
+}
+#nu-app .nu-slide-content {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 48px;
+  height: calc(100% - 110px);
+}
+#nu-app .nu-slide-info {
+  max-width: 620px;
+}
+#nu-app .nu-slide.is-active .nu-slide-info > * {
+  animation: nu-rise 0.8s var(--nu-ease) both;
+}
+#nu-app .nu-slide.is-active .nu-slide-info > :nth-child(2) { animation-delay: 0.06s; }
+#nu-app .nu-slide.is-active .nu-slide-info > :nth-child(3) { animation-delay: 0.12s; }
+#nu-app .nu-slide.is-active .nu-slide-info > :nth-child(4) { animation-delay: 0.18s; }
+#nu-app .nu-slide-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+#nu-app .nu-slide-title {
+  font-size: clamp(32px, 4.6vw, 60px);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+#nu-app .nu-slide-intro {
+  margin-top: 16px;
+  font-size: 17px;
+  color: var(--nu-muted);
+}
+#nu-app .nu-slide-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+#nu-app .nu-slide-poster {
+  display: block;
+  width: clamp(200px, 20vw, 280px);
+  border-radius: 18px;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--nu-border);
+  overflow: hidden;
+  transform: perspective(1000px) rotateY(-8deg) rotateX(2deg);
+  transition: transform 0.6s var(--nu-ease);
+}
+#nu-app .nu-slide-poster:hover {
+  transform: perspective(1000px) rotateY(0) rotateX(0) scale(1.02);
+}
+#nu-app .nu-slide.is-active .nu-slide-poster {
+  animation: nu-pop 0.9s var(--nu-ease) both;
+}
+
+#nu-app .nu-thumbs {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+#nu-app .nu-thumbs::-webkit-scrollbar {
+  display: none;
+}
+#nu-app .nu-thumb {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 0;
+  min-width: 170px;
+  max-width: 260px;
+  padding: 8px;
+  border: 1px solid var(--nu-border);
+  border-radius: 14px;
+  background: var(--nu-surface);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  text-align: left;
+  overflow: hidden;
+  opacity: 0.7;
+  transition: opacity 0.3s, background 0.3s, transform 0.3s var(--nu-ease);
+}
+#nu-app .nu-thumb:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+#nu-app .nu-thumb.is-active {
+  opacity: 1;
+  background: var(--nu-surface-hover);
+}
+#nu-app .nu-thumb-poster {
+  width: 40px;
+  flex: none;
+  border-radius: 8px;
+}
+#nu-app .nu-thumb-poster .nu-poster-fallback {
+  font-size: 10px;
+}
+#nu-app .nu-thumb-title {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+#nu-app .nu-thumb-progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--nu-grad);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+#nu-app .nu-thumb.is-active .nu-thumb-progress {
+  animation: nu-progress var(--dur, 6s) linear forwards;
+}
+#nu-app .nu-hero:hover .nu-thumb-progress {
+  animation-play-state: paused;
+}
+
+/* ---------- genres ---------- */
+#nu-app .nu-genres {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+}
+#nu-app .nu-genres-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  color: var(--nu-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+#nu-app .nu-genres-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ---------- card ---------- */
+#nu-app .nu-card {
+  display: block;
+  animation: nu-rise 0.6s var(--nu-ease) both;
+  animation-delay: calc(var(--i, 0) * 25ms);
+}
+#nu-app .nu-poster .nu-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+}
+#nu-app .nu-poster {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  border-radius: var(--nu-radius);
+  overflow: hidden;
+  background: linear-gradient(110deg, var(--nu-poster-bg) 30%, var(--nu-surface-hover) 50%, var(--nu-poster-bg) 70%);
+  background-size: 250% 100%;
+  animation: nu-shimmer 1.4s linear infinite;
+  isolation: isolate;
+}
+#nu-app .nu-poster.is-loaded,
+#nu-app .nu-poster.is-broken {
+  animation: none;
+  background: var(--nu-poster-bg);
+}
+#nu-app .nu-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s, transform 0.6s var(--nu-ease);
+}
+#nu-app .nu-poster.is-loaded img {
+  opacity: 1;
+}
+#nu-app .nu-poster.is-broken {
+  background: var(--nu-grad);
+}
+#nu-app .nu-poster-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  text-align: center;
+  line-height: 1.3;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+#nu-app .nu-poster-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.65) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+#nu-app .nu-card-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  width: 52px;
+  height: 52px;
+  padding: 15px 14px 15px 17px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.7);
+  transition: opacity 0.3s, transform 0.35s var(--nu-ease);
+}
+#nu-app .nu-card:hover .nu-poster {
+  box-shadow: var(--nu-shadow), 0 0 0 1px var(--nu-border);
+}
+#nu-app .nu-card .nu-poster {
+  transition: transform 0.4s var(--nu-ease), box-shadow 0.4s;
+}
+#nu-app .nu-card:hover .nu-poster {
+  transform: translateY(-6px);
+}
+#nu-app .nu-card:hover .nu-poster img {
+  transform: scale(1.07);
+}
+#nu-app .nu-card:hover .nu-poster-shade {
+  opacity: 1;
+}
+#nu-app .nu-card:hover .nu-card-play {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+#nu-app .nu-card-body {
+  padding: 12px 2px 0;
+}
+#nu-app .nu-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s;
+}
+#nu-app .nu-card:hover .nu-card-title {
+  color: var(--nu-accent);
+}
+#nu-app .nu-card-intro {
+  margin-top: 4px;
+  color: var(--nu-muted);
+  font-size: 12.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- light theme tweaks ---------- */
+html[data-nu-theme="light"] #nu-app .nu-slide-bg img {
+  opacity: 0.35;
+}
+html[data-nu-theme="light"] #nu-app .nu-slide-poster {
+  box-shadow: 0 30px 60px -24px rgba(15, 23, 42, 0.45), 0 0 0 1px var(--nu-border);
+}
+
+@keyframes nu-pop {
+  from {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(-18deg) translateX(30px) scale(0.94);
+  }
+}
+@keyframes nu-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 1024px) {
+  #nu-app .nu-genres {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 760px) {
+  #nu-app .nu-hero {
+    height: 440px;
+  }
+  #nu-app .nu-slide-content {
+    grid-template-columns: 1fr;
+  }
+  #nu-app .nu-slide-poster {
+    display: none;
+  }
+  #nu-app .nu-slide-intro {
+    font-size: 15px;
+  }
+  #nu-app .nu-thumb {
+    min-width: 150px;
+  }
+  #nu-app .nu-genres-list {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  #nu-app .nu-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px 12px;
+  }
+  #nu-app .nu-card-title {
+    font-size: 13.5px;
+  }
+  #nu-app .nu-poster .nu-badge {
+    top: 6px;
+    left: 6px;
+  }
+}
+
+@media (max-width: 420px) {
+  #nu-app .nu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* keep carousel timing intact, it drives auto-advance */
+  #nu-app .nu-thumb.is-active .nu-thumb-progress {
+    animation-duration: var(--dur, 6s) !important;
+  }
+}

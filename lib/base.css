@@ -1,0 +1,716 @@
+/* ============ Ainunu UI — modern theme for video.ainunu.com ============ */
+
+html[data-nu-theme="dark"] {
+  --nu-bg: #09090d;
+  --nu-bg-soft: #111118;
+  --nu-surface: rgba(255, 255, 255, 0.045);
+  --nu-surface-hover: rgba(255, 255, 255, 0.08);
+  --nu-border: rgba(255, 255, 255, 0.08);
+  --nu-text: #f4f4f8;
+  --nu-muted: #9b9bab;
+  --nu-header: rgba(9, 9, 13, 0.72);
+  --nu-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.7);
+  --nu-poster-bg: #1a1a24;
+  color-scheme: dark;
+}
+
+html[data-nu-theme="light"] {
+  --nu-bg: #f5f6fa;
+  --nu-bg-soft: #ffffff;
+  --nu-surface: rgba(15, 23, 42, 0.04);
+  --nu-surface-hover: rgba(15, 23, 42, 0.08);
+  --nu-border: rgba(15, 23, 42, 0.09);
+  --nu-text: #10121a;
+  --nu-muted: #626878;
+  --nu-header: rgba(255, 255, 255, 0.75);
+  --nu-shadow: 0 18px 40px -16px rgba(15, 23, 42, 0.3);
+  --nu-poster-bg: #e6e8ef;
+  color-scheme: light;
+}
+
+html[data-nu-theme] {
+  --nu-accent: #ff3d6e;
+  --nu-accent-2: #8b5cf6;
+  --nu-grad: linear-gradient(135deg, #ff3d6e 0%, #ff7a45 50%, #8b5cf6 100%);
+  --nu-radius: 14px;
+  --nu-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --nu-font: "Inter", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei UI",
+    "Microsoft YaHei", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ---------- page takeover ---------- */
+html.nu-pending,
+html.nu-pending body {
+  background: var(--nu-bg) !important;
+}
+html.nu-pending body {
+  visibility: hidden !important;
+}
+html.nu-on,
+html.nu-on body {
+  background: var(--nu-bg) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  scroll-behavior: smooth;
+}
+html.nu-on body > *:not(#nu-app) {
+  display: none !important;
+}
+html.nu-on::-webkit-scrollbar {
+  width: 10px;
+}
+html.nu-on::-webkit-scrollbar-thumb {
+  background: var(--nu-surface-hover);
+  border: 2px solid var(--nu-bg);
+  border-radius: 10px;
+}
+html.nu-on::-webkit-scrollbar-track {
+  background: var(--nu-bg);
+}
+
+#nu-app {
+  min-height: 100vh;
+  color: var(--nu-text);
+  font-family: var(--nu-font);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+  transition: background-color 0.3s, color 0.3s;
+}
+#nu-app *,
+#nu-app *::before,
+#nu-app *::after {
+  box-sizing: border-box;
+}
+#nu-app a {
+  color: inherit;
+  text-decoration: none;
+}
+#nu-app h1,
+#nu-app h2,
+#nu-app h3,
+#nu-app p {
+  margin: 0;
+}
+#nu-app img {
+  border: 0;
+  display: block;
+}
+#nu-app button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+#nu-app :focus-visible {
+  outline: 2px solid var(--nu-accent);
+  outline-offset: 2px;
+}
+#nu-app ::selection {
+  background: var(--nu-accent);
+  color: #fff;
+}
+
+#nu-app .nu-container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+#nu-app .nu-icon {
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+  flex: none;
+}
+#nu-app .nu-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+#nu-app .nu-icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--nu-border);
+  border-radius: 12px;
+  background: var(--nu-surface);
+  font-size: 18px;
+  transition: background 0.2s, transform 0.2s var(--nu-ease), border-color 0.2s;
+}
+#nu-app .nu-icon-btn:hover {
+  background: var(--nu-surface-hover);
+  transform: translateY(-1px);
+}
+
+/* ---------- header ---------- */
+#nu-app .nu-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+}
+#nu-app .nu-header.is-scrolled {
+  background: var(--nu-header);
+  border-bottom-color: var(--nu-border);
+  backdrop-filter: saturate(180%) blur(18px);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+}
+#nu-app .nu-header-inner {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  height: 68px;
+}
+#nu-app .nu-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+}
+#nu-app .nu-logo {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--nu-grad);
+  color: #fff;
+  font-size: 16px;
+  box-shadow: 0 6px 18px -4px rgba(255, 61, 110, 0.6);
+}
+#nu-app .nu-brand-text {
+  background: linear-gradient(90deg, var(--nu-text), var(--nu-muted));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  white-space: nowrap;
+}
+
+#nu-app .nu-nav {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+#nu-app .nu-nav::-webkit-scrollbar {
+  display: none;
+}
+#nu-app .nu-nav a {
+  position: relative;
+  padding: 8px 14px;
+  border-radius: 10px;
+  color: var(--nu-muted);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.2s, background 0.2s;
+}
+#nu-app .nu-nav a:hover {
+  color: var(--nu-text);
+  background: var(--nu-surface);
+}
+#nu-app .nu-nav a.is-active {
+  color: var(--nu-text);
+}
+#nu-app .nu-nav a.is-active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 18px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--nu-grad);
+  transform: translateX(-50%);
+}
+
+#nu-app .nu-search {
+  position: relative;
+  margin-left: auto;
+  width: min(360px, 100%);
+}
+#nu-app .nu-search-form {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  height: 42px;
+  padding: 4px 4px 4px 40px;
+  border: 1px solid var(--nu-border);
+  border-radius: 999px;
+  background: var(--nu-surface);
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+#nu-app .nu-search-form:focus-within {
+  border-color: rgba(255, 61, 110, 0.6);
+  box-shadow: 0 0 0 4px rgba(255, 61, 110, 0.15);
+  background: var(--nu-bg-soft);
+}
+#nu-app .nu-search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: var(--nu-muted);
+  pointer-events: none;
+}
+#nu-app .nu-search-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--nu-text);
+  font: inherit;
+  font-size: 14px;
+}
+#nu-app .nu-search-input::placeholder {
+  color: var(--nu-muted);
+}
+#nu-app .nu-search-btn {
+  height: 32px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--nu-grad);
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.2s, transform 0.2s;
+}
+#nu-app .nu-search-btn:hover {
+  filter: brightness(1.1);
+}
+#nu-app .nu-search-btn:active {
+  transform: scale(0.96);
+}
+#nu-app .nu-kbd {
+  position: absolute;
+  right: 82px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 1px 7px;
+  border: 1px solid var(--nu-border);
+  border-radius: 6px;
+  font: 12px/18px ui-monospace, monospace;
+  color: var(--nu-muted);
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+#nu-app .nu-search:focus-within .nu-kbd {
+  opacity: 0;
+}
+
+#nu-app .nu-theme-btn {
+  flex: none;
+}
+html[data-nu-theme="dark"] #nu-app .nu-sun,
+html[data-nu-theme="light"] #nu-app .nu-moon {
+  display: none;
+}
+
+/* ---------- notice ---------- */
+#nu-app .nu-notice-wrap {
+  margin-top: 8px;
+  transition: opacity 0.25s, transform 0.25s;
+}
+#nu-app .nu-notice-wrap.is-hiding {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+#nu-app .nu-notice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px 10px 16px;
+  border: 1px solid rgba(255, 170, 60, 0.25);
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(255, 170, 60, 0.12), rgba(255, 170, 60, 0.03));
+  color: var(--nu-text);
+  font-size: 13px;
+}
+#nu-app .nu-notice-icon {
+  font-size: 18px;
+  color: #ffaa3c;
+}
+#nu-app .nu-notice-text {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  flex: 1;
+}
+#nu-app .nu-notice-text a {
+  color: #ffaa3c;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+#nu-app .nu-notice-close {
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
+  border: 0;
+  background: transparent;
+}
+
+/* ---------- buttons ---------- */
+#nu-app .nu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  transition: transform 0.25s var(--nu-ease), box-shadow 0.25s, background 0.25s, filter 0.25s;
+}
+#nu-app .nu-btn:hover {
+  transform: translateY(-2px);
+}
+#nu-app .nu-btn--primary {
+  background: var(--nu-grad);
+  color: #fff;
+  box-shadow: 0 12px 30px -10px rgba(255, 61, 110, 0.8);
+}
+#nu-app .nu-btn--primary:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 16px 36px -10px rgba(255, 61, 110, 0.9);
+}
+#nu-app .nu-btn--ghost {
+  border: 1px solid var(--nu-border);
+  background: var(--nu-surface);
+  backdrop-filter: blur(10px);
+}
+#nu-app .nu-btn--ghost:hover {
+  background: var(--nu-surface-hover);
+}
+#nu-app .nu-btn--ghost .nu-icon {
+  transition: transform 0.25s var(--nu-ease);
+}
+#nu-app .nu-btn--ghost:hover .nu-icon {
+  transform: translateX(3px);
+}
+#nu-app .nu-btn--static:hover .nu-icon {
+  transform: none;
+}
+#nu-app .nu-btn.is-done {
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #10b981;
+}
+/* ---------- chips & badges ---------- */
+#nu-app .nu-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 16px;
+  border: 1px solid var(--nu-border);
+  border-radius: 999px;
+  background: var(--nu-surface);
+  color: var(--nu-text);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s var(--nu-ease), color 0.2s;
+}
+#nu-app a.nu-chip:hover {
+  border-color: transparent;
+  background: var(--nu-grad);
+  color: #fff;
+  transform: translateY(-2px);
+}
+#nu-app .nu-chip--glow {
+  height: 28px;
+  padding: 0 12px;
+  border-color: rgba(255, 61, 110, 0.4);
+  background: rgba(255, 61, 110, 0.14);
+  color: #ff6b8e;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+#nu-app .nu-badge {
+  display: inline-flex;
+  flex: none;
+  white-space: nowrap;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #fff;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.35);
+}
+#nu-app .nu-badge--bd { background: linear-gradient(135deg, #3b82f6, #6366f1); }
+#nu-app .nu-badge--hd { background: linear-gradient(135deg, #10b981, #0ea5e9); }
+#nu-app .nu-badge--ep { background: linear-gradient(135deg, #ff3d6e, #ff7a45); }
+#nu-app .nu-badge--end { background: linear-gradient(135deg, #64748b, #334155); }
+#nu-app .nu-badge--other { background: rgba(0, 0, 0, 0.6); }
+
+#nu-app .nu-pick {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* ---------- shared bits ---------- */
+#nu-app [hidden] {
+  display: none !important;
+}
+#nu-app .nu-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  color: var(--nu-muted);
+  font-size: 13px;
+}
+#nu-app .nu-crumbs a {
+  transition: color 0.2s;
+}
+#nu-app .nu-crumbs a:hover {
+  color: var(--nu-text);
+}
+#nu-app .nu-crumbs [aria-current] {
+  color: var(--nu-text);
+  font-weight: 600;
+}
+#nu-app .nu-crumb-sep {
+  font-size: 14px;
+  opacity: 0.6;
+}
+#nu-app .nu-badge--res {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+#nu-app .nu-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border: 1px solid var(--nu-border);
+  border-radius: 6px;
+  color: var(--nu-muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+/* ---------- sections ---------- */
+#nu-app .nu-section {
+  margin-top: 48px;
+  scroll-margin-top: 84px;
+}
+#nu-app .nu-section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+#nu-app .nu-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+#nu-app .nu-section-title .nu-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  border-radius: 10px;
+  background: var(--nu-grad);
+  color: #fff;
+}
+#nu-app .nu-section-sub {
+  margin-top: 6px;
+  margin-left: 46px;
+  color: var(--nu-muted);
+  font-size: 13px;
+}
+#nu-app .nu-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: var(--nu-muted);
+  font-size: 13px;
+  font-weight: 600;
+  transition: color 0.2s, background 0.2s;
+}
+#nu-app .nu-more:hover {
+  color: var(--nu-text);
+  background: var(--nu-surface);
+}
+#nu-app .nu-more .nu-icon {
+  transition: transform 0.25s var(--nu-ease);
+}
+#nu-app .nu-more:hover .nu-icon {
+  transform: translateX(3px);
+}
+
+#nu-app .nu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(172px, 1fr));
+  gap: 28px 20px;
+}
+
+/* ---------- footer & floating ---------- */
+#nu-app .nu-footer {
+  margin-top: 72px;
+  border-top: 1px solid var(--nu-border);
+}
+#nu-app .nu-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 28px;
+  padding-bottom: 36px;
+  color: var(--nu-muted);
+  font-size: 13px;
+}
+#nu-app .nu-footer a {
+  color: var(--nu-accent);
+}
+#nu-app .nu-top {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 60;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--nu-grad);
+  color: #fff;
+  box-shadow: 0 12px 28px -8px rgba(255, 61, 110, 0.7);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.3s, transform 0.3s var(--nu-ease);
+}
+#nu-app .nu-top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+#nu-app .nu-top:hover {
+  transform: translateY(-3px);
+  background: var(--nu-grad);
+}
+html[data-nu-theme="light"] #nu-app .nu-notice-icon,
+html[data-nu-theme="light"] #nu-app .nu-notice-text a {
+  color: #c2710c;
+}
+/* ---------- animations ---------- */
+@keyframes nu-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes nu-shimmer {
+  to {
+    background-position: -150% 0;
+  }
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 1024px) {
+  #nu-app .nu-container {
+    padding: 0 20px;
+  }
+  #nu-app .nu-header-inner {
+    gap: 16px;
+  }
+  #nu-app .nu-kbd {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  #nu-app .nu-header-inner {
+    flex-wrap: wrap;
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    row-gap: 10px;
+  }
+  #nu-app .nu-brand {
+    font-size: 16px;
+  }
+  #nu-app .nu-theme-btn {
+    margin-left: auto;
+  }
+  #nu-app .nu-nav {
+    order: 3;
+    width: 100%;
+  }
+  #nu-app .nu-search {
+    order: 4;
+    width: 100%;
+  }
+  #nu-app .nu-btn {
+    height: 44px;
+    padding: 0 18px;
+    font-size: 14px;
+  }
+  #nu-app .nu-section {
+    margin-top: 36px;
+  }
+  #nu-app .nu-section-title {
+    font-size: 21px;
+  }
+  #nu-app .nu-badge {
+    height: 20px;
+    padding: 0 6px;
+    font-size: 10px;
+  }
+  #nu-app .nu-top {
+    right: 16px;
+    bottom: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #nu-app *,
+  #nu-app *::before,
+  #nu-app *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

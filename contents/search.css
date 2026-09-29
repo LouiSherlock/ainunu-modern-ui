@@ -1,0 +1,203 @@
+/* ============ Ainunu UI — search results (extends list.css) ============ */
+
+#nu-app .nu-search-head {
+  padding-top: 40px;
+}
+#nu-app .nu-search-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--nu-accent);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  animation: nu-rise 0.6s var(--nu-ease) both;
+}
+#nu-app .nu-search-head .nu-page-title {
+  margin-top: 10px;
+  overflow-wrap: anywhere;
+  animation: nu-rise 0.7s 0.04s var(--nu-ease) both;
+}
+#nu-app .nu-search-head .nu-page-sub {
+  animation: nu-rise 0.7s 0.08s var(--nu-ease) both;
+}
+
+/* ---------- big search box ---------- */
+#nu-app .nu-big-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 720px;
+  height: 60px;
+  margin-top: 26px;
+  padding: 0 8px 0 22px;
+  border: 1px solid var(--nu-border);
+  border-radius: 999px;
+  background: var(--nu-surface);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--nu-shadow);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  animation: nu-rise 0.7s 0.12s var(--nu-ease) both;
+}
+#nu-app .nu-big-search:focus-within {
+  border-color: rgba(255, 61, 110, 0.6);
+  box-shadow: 0 0 0 5px rgba(255, 61, 110, 0.15), var(--nu-shadow);
+}
+#nu-app .nu-big-search-icon {
+  flex: none;
+  color: var(--nu-muted);
+  font-size: 20px;
+}
+#nu-app .nu-big-search-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--nu-text);
+  font: inherit;
+  font-size: 17px;
+}
+#nu-app .nu-big-search-input::placeholder {
+  color: var(--nu-muted);
+}
+#nu-app .nu-big-search-input::-webkit-search-cancel-button {
+  cursor: pointer;
+}
+#nu-app .nu-big-search-btn {
+  flex: none;
+  height: 44px;
+  padding: 0 28px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--nu-grad);
+  color: #fff;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 24px -10px rgba(255, 61, 110, 0.8);
+  transition: filter 0.2s, transform 0.2s var(--nu-ease);
+}
+#nu-app .nu-big-search-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+/* ---------- channel filter chips ---------- */
+#nu-app .nu-search-head button.nu-chip {
+  gap: 8px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+#nu-app .nu-search-head button.nu-chip:not(.is-active):hover {
+  background: var(--nu-surface-hover);
+}
+#nu-app .nu-chip em {
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--nu-surface-hover);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+#nu-app .nu-chip.is-active em {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ---------- results ---------- */
+#nu-app .nu-search-results {
+  margin-top: 32px;
+}
+#nu-app .nu-search-results .nu-entry {
+  align-items: stretch;
+}
+#nu-app .nu-search-results .nu-entry-cover {
+  align-self: center;
+}
+#nu-app .nu-mark {
+  padding: 0 2px;
+  border-radius: 4px;
+  background: rgba(255, 61, 110, 0.2);
+  color: inherit;
+  box-shadow: inset 0 -2px 0 rgba(255, 61, 110, 0.7);
+}
+#nu-app .nu-entry-snippet {
+  display: -webkit-box;
+  margin-top: 4px;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  color: var(--nu-muted);
+  font-size: 12px;
+  opacity: 0.85;
+}
+#nu-app .nu-entry-where {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+#nu-app .nu-entry-channel {
+  color: var(--nu-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+#nu-app .nu-entry-date {
+  margin-top: auto;
+  color: var(--nu-muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- empty state ---------- */
+#nu-app .nu-search-empty {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 64px 24px;
+  border: 1px dashed var(--nu-border);
+  border-radius: 24px;
+  background: var(--nu-surface);
+  text-align: center;
+  animation: nu-rise 0.7s var(--nu-ease) both;
+}
+#nu-app .nu-search-empty-icon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 8px;
+  border-radius: 24px;
+  background: var(--nu-grad);
+  color: #fff;
+  font-size: 32px;
+  box-shadow: 0 16px 36px -12px rgba(255, 61, 110, 0.7);
+}
+#nu-app .nu-search-empty h2 {
+  font-size: 22px;
+  font-weight: 800;
+}
+#nu-app .nu-search-empty p {
+  color: var(--nu-muted);
+  font-size: 14px;
+}
+
+@media (max-width: 760px) {
+  #nu-app .nu-big-search {
+    height: 52px;
+    padding: 0 6px 0 16px;
+  }
+  #nu-app .nu-big-search-input {
+    font-size: 16px;
+  }
+  #nu-app .nu-big-search-btn {
+    height: 40px;
+    padding: 0 18px;
+  }
+  #nu-app .nu-entry-channel {
+    display: none;
+  }
+}
