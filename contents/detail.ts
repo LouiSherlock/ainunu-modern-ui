@@ -14,7 +14,14 @@ import { hashHue, parseTitle, titleTags } from "~lib/title"
 import type { PlasmoCSConfig } from "plasmo"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://video.ainunu.com/c/*", "http://video.ainunu.com/c/*"],
+  matches: [
+    // @site-matches:detail:start
+    "https://video.ainunu.com/c/*",
+    "http://video.ainunu.com/c/*",
+    "https://video.ainunu.org/c/*",
+    "http://video.ainunu.org/c/*"
+    // @site-matches:detail:end
+  ],
   run_at: "document_start"
 }
 

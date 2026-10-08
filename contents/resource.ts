@@ -10,6 +10,7 @@ import {
   type IconName
 } from "~lib/core"
 import { parseTitle, titleTags } from "~lib/title"
+import { VIDEO_PRIMARY_ORIGIN } from "~lib/sites"
 import type { PlasmoCSConfig } from "plasmo"
 
 // Download pages linked from the detail pages' "查看资源页面" button,
@@ -19,7 +20,7 @@ export const config: PlasmoCSConfig = {
   run_at: "document_start"
 }
 
-const SITE = "https://video.ainunu.com"
+const SITE = VIDEO_PRIMARY_ORIGIN
 
 const CHANNELS: { re: RegExp; text: string; path: string; icon: IconName }[] = [
   { re: /-dy$|^movie/, text: "电影", path: "/c/movie/", icon: "film" },
@@ -417,7 +418,7 @@ bootstrap(
       siteName: "爱努努绿色电影",
       form: searchForm(),
       backup: null,
-      warning: ""
+      // warning: ""
     }
   }
 )

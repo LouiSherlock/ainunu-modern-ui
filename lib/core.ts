@@ -3,7 +3,6 @@ import baseCss from "data-text:./base.css"
 import { getEnabled, onEnabledChange } from "./settings"
 
 const THEME_KEY = "nu-theme"
-const NOTICE_KEY = "nu-notice-closed"
 
 export const root = document.documentElement
 
@@ -129,7 +128,6 @@ export function collectCommon() {
   return {
     nav,
     backup,
-    warning: clean(document.getElementById("warning")?.textContent),
     form: document.querySelector<HTMLFormElement>('form[name="formsearch"]'),
     /** Nav href to highlight; empty = derive from the current path */
     activeHref: "",
@@ -260,52 +258,6 @@ export function header(data: Common) {
   return el
 }
 
-export function notice(data: Common) {
-  if (!data.warning && !data.backup) return null
-  if (storage.get(sessionStorage, NOTICE_KEY)) return null
-  const el = h(
-    "div",
-    { class: "nu-container nu-notice-wrap" },
-    h(
-      "div",
-      { class: "nu-notice" },
-      icon("info", "nu-notice-icon"),
-      h(
-        "div",
-        { class: "nu-notice-text" },
-        data.warning ? h("span", {}, data.warning) : null,
-        data.backup
-          ? h(
-              "span",
-              {},
-              data.backup.text ? `${data.backup.text} ` : "备用网址：",
-              h(
-                "a",
-                { href: data.backup.href, target: "_blank", rel: "noopener" },
-                data.backup.label
-              )
-            )
-          : null
-      ),
-      h(
-        "button",
-        {
-          class: "nu-icon-btn nu-notice-close",
-          type: "button",
-          "aria-label": "关闭提示",
-          onclick: () => {
-            storage.set(sessionStorage, NOTICE_KEY, "1")
-            el.classList.add("is-hiding")
-            window.setTimeout(() => el.remove(), 250)
-          }
-        },
-        icon("close")
-      )
-    )
-  )
-  return el
-}
-
 export function footer(data: Common) {
   return h(
     "footer",
@@ -386,7 +338,7 @@ export function bootstrap(
         "div",
         { id: "nu-app" },
         header(common),
-        h("main", { class: "nu-main" }, notice(common), body),
+        h("main", { class: "nu-main" }, body),
         footer(common),
         backToTop()
       )

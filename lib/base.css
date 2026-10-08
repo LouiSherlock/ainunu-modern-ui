@@ -8,7 +8,8 @@ html[data-nu-theme="dark"] {
   --nu-border: rgba(255, 255, 255, 0.08);
   --nu-text: #f4f4f8;
   --nu-muted: #9b9bab;
-  --nu-header: rgba(9, 9, 13, 0.72);
+  --nu-header-glass: rgba(9, 9, 13, 0.34);
+  --nu-header: rgba(9, 9, 13, 0.56);
   --nu-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.7);
   --nu-poster-bg: #1a1a24;
   color-scheme: dark;
@@ -22,7 +23,8 @@ html[data-nu-theme="light"] {
   --nu-border: rgba(15, 23, 42, 0.09);
   --nu-text: #10121a;
   --nu-muted: #626878;
-  --nu-header: rgba(255, 255, 255, 0.75);
+  --nu-header-glass: rgba(255, 255, 255, 0.48);
+  --nu-header: rgba(255, 255, 255, 0.6);
   --nu-shadow: 0 18px 40px -16px rgba(15, 23, 42, 0.3);
   --nu-poster-bg: #e6e8ef;
   color-scheme: light;
@@ -152,15 +154,19 @@ html.nu-on::-webkit-scrollbar-track {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: transparent;
-  border-bottom: 1px solid transparent;
-  transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+  background: var(--nu-header-glass);
+  border-bottom: 1px solid var(--nu-border);
+  backdrop-filter: saturate(150%) blur(14px);
+  -webkit-backdrop-filter: saturate(150%) blur(14px);
+  transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s, box-shadow 0.3s;
+  backdrop-filter: blur(10px);
 }
 #nu-app .nu-header.is-scrolled {
   background: var(--nu-header);
   border-bottom-color: var(--nu-border);
-  backdrop-filter: saturate(180%) blur(18px);
-  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
 }
 #nu-app .nu-header-inner {
   display: flex;
@@ -320,50 +326,6 @@ html.nu-on::-webkit-scrollbar-track {
 html[data-nu-theme="dark"] #nu-app .nu-sun,
 html[data-nu-theme="light"] #nu-app .nu-moon {
   display: none;
-}
-
-/* ---------- notice ---------- */
-#nu-app .nu-notice-wrap {
-  margin-top: 8px;
-  transition: opacity 0.25s, transform 0.25s;
-}
-#nu-app .nu-notice-wrap.is-hiding {
-  opacity: 0;
-  transform: translateY(-6px);
-}
-#nu-app .nu-notice {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 10px 10px 16px;
-  border: 1px solid rgba(255, 170, 60, 0.25);
-  border-radius: 12px;
-  background: linear-gradient(90deg, rgba(255, 170, 60, 0.12), rgba(255, 170, 60, 0.03));
-  color: var(--nu-text);
-  font-size: 13px;
-}
-#nu-app .nu-notice-icon {
-  font-size: 18px;
-  color: #ffaa3c;
-}
-#nu-app .nu-notice-text {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 20px;
-  flex: 1;
-}
-#nu-app .nu-notice-text a {
-  color: #ffaa3c;
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-#nu-app .nu-notice-close {
-  width: 30px;
-  height: 30px;
-  font-size: 14px;
-  border: 0;
-  background: transparent;
 }
 
 /* ---------- buttons ---------- */
@@ -626,10 +588,6 @@ html[data-nu-theme="light"] #nu-app .nu-moon {
 #nu-app .nu-top:hover {
   transform: translateY(-3px);
   background: var(--nu-grad);
-}
-html[data-nu-theme="light"] #nu-app .nu-notice-icon,
-html[data-nu-theme="light"] #nu-app .nu-notice-text a {
-  color: #c2710c;
 }
 /* ---------- animations ---------- */
 @keyframes nu-rise {

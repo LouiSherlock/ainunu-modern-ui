@@ -5,12 +5,20 @@ import type { PlasmoCSConfig } from "plasmo"
 
 export const config: PlasmoCSConfig = {
   matches: [
+    // @site-matches:home:start
     "https://video.ainunu.com/",
     "https://video.ainunu.com/?*",
     "https://video.ainunu.com/index.htm*",
     "http://video.ainunu.com/",
     "http://video.ainunu.com/?*",
-    "http://video.ainunu.com/index.htm*"
+    "http://video.ainunu.com/index.htm*",
+    "https://video.ainunu.org/",
+    "https://video.ainunu.org/?*",
+    "https://video.ainunu.org/index.htm*",
+    "http://video.ainunu.org/",
+    "http://video.ainunu.org/?*",
+    "http://video.ainunu.org/index.htm*"
+    // @site-matches:home:end
   ],
   run_at: "document_start"
 }
@@ -224,7 +232,7 @@ function hero(items: Item[]) {
                 rel: "noopener"
               },
               icon("play"),
-              "立即观看"
+              "立即查看"
             ),
             h(
               "a",
@@ -259,7 +267,12 @@ function hero(items: Item[]) {
         onclick: () => go(i)
       },
       poster(item, "nu-thumb-poster"),
-      h("span", { class: "nu-thumb-title" }, item.title),
+      h(
+        "span",
+        { class: "nu-thumb-copy" },
+        h("span", { class: "nu-thumb-title" }, item.title),
+        h("span", { class: "nu-thumb-subtitle" }, item.intro || "2026高分动画")
+      ),
       h("span", {
         class: "nu-thumb-progress",
         style: `--dur:${SLIDE_MS}ms`

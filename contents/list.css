@@ -3,8 +3,8 @@
 /* ---------- page head ---------- */
 #nu-app .nu-page-head {
   position: relative;
-  padding-top: 36px;
-  padding-bottom: 8px;
+  padding-top: 48px;
+  padding-bottom: 12px;
 }
 #nu-app .nu-page-head::before {
   content: "";
@@ -23,27 +23,27 @@
 #nu-app .nu-page-title-row {
   display: flex;
   align-items: center;
-  gap: 18px;
-  margin-top: 22px;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 32px;
   animation: nu-rise 0.7s var(--nu-ease) both;
 }
 #nu-app .nu-page-icon {
   display: grid;
   place-items: center;
-  width: 64px;
-  height: 64px;
+  width: 76px;
+  height: 76px;
   flex: none;
-  border-radius: 20px;
+  border-radius: 22px;
   background: var(--nu-grad);
   color: #fff;
-  font-size: 30px;
+  font-size: 34px;
   box-shadow: 0 16px 36px -12px rgba(255, 61, 110, 0.7);
 }
 #nu-app .nu-page-title {
-  font-size: clamp(30px, 4vw, 44px);
+  font-size: 48px;
   font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
+  line-height: 1.08;
 }
 #nu-app .nu-page-sub {
   margin-top: 8px;
@@ -54,7 +54,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 26px;
+  margin-top: 32px;
 }
 #nu-app .nu-filters .nu-chip.is-active {
   border-color: transparent;
@@ -65,7 +65,7 @@
 
 /* ---------- section / filter ---------- */
 #nu-app .nu-list {
-  margin-top: 36px;
+  margin-top: 48px;
 }
 #nu-app .nu-filter {
   position: relative;
@@ -80,6 +80,7 @@
   background: var(--nu-surface);
   color: var(--nu-muted);
   transition: border-color 0.2s, box-shadow 0.2s;
+  margin-left: auto;
 }
 #nu-app .nu-filter:focus-within {
   border-color: rgba(255, 61, 110, 0.6);
@@ -189,6 +190,10 @@
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
   transition: transform 0.4s var(--nu-ease);
 }
+#nu-app .nu-entry-cover > .nu-icon {
+  width: 28px;
+  height: 28px;
+}
 #nu-app .nu-entry-cover::after {
   content: "";
   position: absolute;
@@ -268,17 +273,15 @@ html[data-nu-theme="light"] #nu-app .nu-entry:hover .nu-entry-link {
   z-index: 2;
   padding: 3px 10px;
   border-radius: 999px;
-  background: hsla(var(--hue), 80%, 60%, 0.14);
-  color: hsl(var(--hue), 85%, 68%);
+  background: var(--nu-surface);
+  color: var(--nu-muted);
   font-size: 12px;
   font-weight: 600;
-  transition: background 0.2s;
-}
-html[data-nu-theme="light"] #nu-app .nu-region {
-  color: hsl(var(--hue), 70%, 38%);
+  transition: background 0.2s, color 0.2s;
 }
 #nu-app .nu-region:hover {
-  background: hsla(var(--hue), 80%, 60%, 0.26);
+  background: var(--nu-surface-hover);
+  color: var(--nu-text);
 }
 #nu-app .nu-entry-play {
   display: grid;
@@ -315,6 +318,14 @@ html[data-nu-theme="light"] #nu-app .nu-region {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+#nu-app .nu-pager-summary {
+  flex: 0 0 100%;
+  margin: 0;
+  color: var(--nu-muted);
+  font-size: 14px;
+  white-space: nowrap;
+  text-align: left;
 }
 #nu-app .nu-page-nums {
   display: flex;
@@ -420,13 +431,20 @@ html[data-nu-theme="light"] #nu-app .nu-region {
 
 @media (max-width: 760px) {
   #nu-app .nu-page-head {
-    padding-top: 20px;
+    padding-top: 28px;
   }
   #nu-app .nu-page-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 16px;
-    font-size: 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    font-size: 28px;
+  }
+  #nu-app .nu-page-title {
+    font-size: 38px;
+  }
+  #nu-app .nu-page-title-row {
+    gap: 18px;
+    margin-top: 26px;
   }
   #nu-app .nu-filters {
     flex-wrap: nowrap;
@@ -465,6 +483,14 @@ html[data-nu-theme="light"] #nu-app .nu-region {
   }
   #nu-app .nu-pager {
     justify-content: center;
+  }
+  #nu-app .nu-pager-main {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  #nu-app .nu-pager-summary {
+    text-align: center;
   }
   #nu-app .nu-page-arrow span:not(.nu-icon) {
     display: none;

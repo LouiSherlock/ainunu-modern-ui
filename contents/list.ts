@@ -16,7 +16,14 @@ import { hashHue, parseTitle, titleTags } from "~lib/title"
 import type { PlasmoCSConfig } from "plasmo"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://video.ainunu.com/c/*", "http://video.ainunu.com/c/*"],
+  matches: [
+    // @site-matches:list:start
+    "https://video.ainunu.com/c/*",
+    "http://video.ainunu.com/c/*",
+    "https://video.ainunu.org/c/*",
+    "http://video.ainunu.org/c/*"
+    // @site-matches:list:end
+  ],
   run_at: "document_start"
 }
 
@@ -128,6 +135,7 @@ function collect() {
       current,
       total: totalPages,
       count: strongs[1] || 0,
+      summary: `${strongs[1] ? `共 ${strongs[1].toLocaleString()} 部作品 · ` : ""}第 ${current} / ${totalPages} 页`,
       url: (n: number) =>
         n <= 1 ? pageBase : `${pageBase}${prefix}${n}.html`
     }
@@ -166,13 +174,7 @@ function pageHead(data: Data) {
       h(
         "div",
         {},
-        h("h1", { class: "nu-page-title" }, data.title),
-        h(
-          "p",
-          { class: "nu-page-sub" },
-          data.page.count ? `共 ${data.page.count.toLocaleString()} 部作品 · ` : "",
-          `第 ${data.page.current} / ${data.page.total} 页`
-        )
+        h("h1", { class: "nu-page-title" }, data.title)
       )
     ),
     data.subs.length
@@ -213,7 +215,7 @@ function entryCard(e: Entry, data: Data, index: number) {
       style: `--hue:${hashHue(e.name)};--i:${Math.min(index, 20)}`,
       "data-name": `${e.name} ${e.desc}`.toLowerCase()
     },
-    h("div", { class: "nu-entry-cover", "aria-hidden": "true" }, h("span", {}, e.name.slice(0, 2))),
+    h("div", { class: "nu-entry-cover", "aria-hidden": "true" }, icon("film")),
     h(
       "div",
       { class: "nu-entry-main" },
@@ -297,17 +299,17 @@ function listSection(data: Data) {
   return h(
     "section",
     { class: "nu-container nu-section nu-list" },
-    h(
-      "div",
-      { class: "nu-section-head" },
-      h(
-        "div",
-        {},
-        h("h2", { class: "nu-section-title" }, icon("calendar"), "最近更新"),
-        h("p", { class: "nu-section-sub" }, `本页 ${data.items.length} 部 · 按更新时间排序`)
-      ),
-      h("label", { class: "nu-filter" }, icon("search"), filter)
-    ),
+    // h(
+    //   "div",
+    //   { class: "nu-section-head" },
+    //   h(
+    //     "div",
+    //     {},
+    //     h("h2", { class: "nu-section-title" }, icon("calendar"), "最近更新"),
+    //     h("p", { class: "nu-section-sub" }, `本页 ${data.items.length} 部 · 按更新时间排序`)
+    //   ),
+    //   h("label", { class: "nu-filter" }, icon("search"), filter)
+    // ),
     groupEls,
     empty
   )

@@ -5,6 +5,7 @@
   "description": "A basic Plasmo extension.",
   "author": "Plasmo Corp. <foss@plasmo.com>",
   "scripts": {
+    "sync:sites": "node scripts/sync-site-matches.mjs",
     "dev": "plasmo dev",
     "build": "plasmo build",
     "package": "plasmo package"
@@ -28,7 +29,12 @@
       "storage"
     ],
     "host_permissions": [
-      "https://*/*"
+      "https://video.ainunu.com/*",
+      "http://video.ainunu.com/*",
+      "https://video.ainunu.org/*",
+      "http://video.ainunu.org/*",
+      "https://*.got06.com/*",
+      "http://*.got06.com/*"
     ]
   }
 }

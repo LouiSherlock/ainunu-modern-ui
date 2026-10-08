@@ -8,8 +8,12 @@ import type { PlasmoCSConfig } from "plasmo"
 
 export const config: PlasmoCSConfig = {
   matches: [
+    // @site-matches:search:start
     "https://video.ainunu.com/plus/search.php*",
-    "http://video.ainunu.com/plus/search.php*"
+    "http://video.ainunu.com/plus/search.php*",
+    "https://video.ainunu.org/plus/search.php*",
+    "http://video.ainunu.org/plus/search.php*"
+    // @site-matches:search:end
   ],
   run_at: "document_start"
 }
@@ -195,7 +199,7 @@ function resultCard(r: Result, kw: string, index: number) {
       style: `--hue:${hashHue(r.name)};--i:${Math.min(index, 20)}`,
       "data-channel": r.channel
     },
-    h("div", { class: "nu-entry-cover", "aria-hidden": "true" }, h("span", {}, r.name.slice(0, 2))),
+    h("div", { class: "nu-entry-cover", "aria-hidden": "true" }, icon("film")),
     h(
       "div",
       { class: "nu-entry-main" },

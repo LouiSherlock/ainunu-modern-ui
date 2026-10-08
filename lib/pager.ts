@@ -3,6 +3,7 @@ import { h, icon, isTyping } from "./core"
 export interface PageInfo {
   current: number
   total: number
+  summary?: string
   url: (n: number) => string
 }
 
@@ -69,7 +70,10 @@ export function pager(page: PageInfo) {
       "页",
       h("button", { class: "nu-page-go", type: "button", onclick: go }, "跳转"),
       h("span", { class: "nu-pager-hint" }, h("kbd", {}, "←"), h("kbd", {}, "→"), " 翻页")
-    )
+    ),
+    page.summary
+      ? h("p", { class: "nu-page-sub nu-pager-summary" }, page.summary)
+      : null
   )
 }
 

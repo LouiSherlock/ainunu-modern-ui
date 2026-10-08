@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react"
 
 import { getEnabled, onEnabledChange, setEnabled } from "~lib/settings"
+import { isVideoHost, VIDEO_HOME_URL } from "~lib/sites"
 
 import "./popup.css"
 
-const SITE = "https://video.ainunu.com/"
-const HOSTS = [/(^|\.)ainunu\.com$/, /(^|\.)got06\.com$/]
+const HOSTS = [/(^|\.)got06\.com$/]
 
 const PAGES = [
   { name: "首页", hue: 340 },
   { name: "频道列表", hue: 20 },
   { name: "影片详情", hue: 265 },
   { name: "资源下载", hue: 190 },
-  { name: "搜索结果", hue: 140 }
+  { name: "搜索结果", hue: 140 },
+  { name: "标签列表", hue: 80 }
 ]
 
 type TabState = "loading" | "match" | "other"
@@ -33,7 +34,7 @@ function IndexPopup() {
         } catch {
           /* chrome:// etc. */
         }
-        setTab(HOSTS.some((re) => re.test(host)) ? "match" : "other")
+        setTab(isVideoHost(host) || HOSTS.some((re) => re.test(host)) ? "match" : "other")
       })
       .catch(() => setTab("other"))
   }, [])
@@ -107,7 +108,7 @@ function IndexPopup() {
         </div>
       </section>
 
-      <a className="pp-card pp-link" href={SITE} target="_blank" rel="noreferrer">
+      <a className="pp-card pp-link" href={VIDEO_HOME_URL} target="_blank" rel="noreferrer">
         <span>打开爱努努影视</span>
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M7 17 17 7M9 7h8v8" />
